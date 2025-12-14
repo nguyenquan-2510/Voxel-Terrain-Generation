@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4eobsww6eham"]
+
+[ext_resource type="Script" uid="uid://cjxdtl3i4rnpc" path="res://Player.cs" id="1_xhfnw"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0rwas"]
+height = 1.95
+radius = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0rwas"]
+transparency = 1
+albedo_color = Color(1, 1, 0.07450981, 0.25882354)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhfnw"]
+material = SubResource("StandardMaterial3D_0rwas")
+size = Vector3(1.05, 1.05, 1.05)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Head", "Camera", "RayCast", "BlockHightlight")]
+script = ExtResource("1_xhfnw")
+Head = NodePath("Head")
+Camera = NodePath("Head/Camera3D")
+RayCast = NodePath("Head/Camera3D/RayCast3D")
+BlockHightlight = NodePath("BlockHighlight")
+_movementSpeed = 8.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_0rwas")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51522076, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -5)
+
+[node name="BlockHighlight" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xhfnw")
